@@ -3,7 +3,8 @@
   "include": ["src", "types"],
   "compilerOptions": {
     "module": "esnext",
-    "lib": ["dom", "esnext"],
+    "target": "ES6",
+    "lib": ["DOM", "ES6", "DOM.Iterable", "ScriptHost", "ES2016.Array.Include"],
     "importHelpers": true,
     // output .d.ts declaration files for consumers
     "declaration": true,
