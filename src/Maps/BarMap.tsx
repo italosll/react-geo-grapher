@@ -5,11 +5,11 @@ import {
   Geography,
   ZoomableGroup,
   ZoomableGroupProps,
-} from 'react-simple-maps';
+} from 'react-simple-maps'
 
-import React, { CSSProperties, useEffect, useState } from 'react';
-import { Feature, FeatureCollection } from '@turf/turf';
-import { plotSections } from '../Core/index';
+import React, { CSSProperties, useEffect, useState } from 'react'
+import { Feature, FeatureCollection } from '@turf/turf'
+import { plotSections } from '../Core/index'
 
 export type BarMapProps= {
   limits: any[],
@@ -28,9 +28,9 @@ export const BarMap = ({
   ComposableMapProps: ComposableProps,
   ZoomableGroupProps: ZoomableProps,
 }:BarMapProps) => {
-  const [cliped, setCliped] = useState<any>();
+  const [cliped, setCliped] = useState<any>()
 
-  useEffect(() => setCliped(plotSections(geojson, limits)), [limits]);
+  useEffect(() => { if (!!limits && !!geojson) setCliped(plotSections(geojson, limits)) }, [limits])
 
   return (
     <>
@@ -48,7 +48,7 @@ export const BarMap = ({
                 <Geography
                   key={geo.rsmKey}
                   geography={geo}
-                  fill={colors[index]}
+                  fill={!!colors && colors[index]}
                 />
               ))}
             </Geographies>
@@ -56,5 +56,5 @@ export const BarMap = ({
         </ComposableMap>
       </div>
     </>
-  );
-};
+  )
+}
