@@ -11,7 +11,8 @@
 <img
 src="https://i.ibb.co/LhGcQms/codesandbox.png" alt="codesandbox" width="150px"
 />
-</a>
+</a>   
+
 ## Install
 
 Using npm:
@@ -32,7 +33,7 @@ For the library to work correctly it is necessary to add the following line to t
 SKIP_PREFLIGHT_CHECK=true
 ```
 
-### Example
+## Example
 
 <h1 align="center">
 <img width="300px"  src="https://i.ibb.co/MDwwdBX/map.png" alt="map">
