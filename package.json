@@ -3,6 +3,7 @@
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
+  "homepage": "https://github.com/italosll/react-geo-grapher#readme",
   "files": [
     "dist",
     "src"
@@ -39,6 +40,8 @@
   },
   "name": "react-geo-grapher",
   "author": "italosll",
+  "email": "italomsilva.if@gmail.com",
+  "url": "https://www.linkedin.com/in/italoms/",
   "module": "dist/react-geo-grapher.esm.js",
   "size-limit": [
     {
