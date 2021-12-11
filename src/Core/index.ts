@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 import {
   point,
   featureCollection,
@@ -11,6 +12,13 @@ import {
   Feature,
   Geometry,
   Properties,
+  MultiPolygon,
+  Units,
+  squareGrid,
+  centerOfMass,
+  lineString,
+  lineIntersect,
+  booleanWithin,
 } from '@turf/turf'
 
 export function getBbox(data: any[]) {
@@ -28,21 +36,21 @@ export function getBbox(data: any[]) {
 }
 
 export function getLimits(cliped: string | any[]) {
-  const limits = []
+  const percents = []
 
   for (let i = 0; i < cliped?.length; i++) {
     const sectionsBbox = []
     // @ts-ignore
     sectionsBbox[i] = getBbox([cliped[i]])
-    limits[i] = [
-    // @ts-ignore
+    percents[i] = [
+      // @ts-ignore
       sectionsBbox[i]?.geometry?.coordinates[0][0][1],
       // @ts-ignore
       sectionsBbox[i]?.geometry?.coordinates[0][2][1],
     ]
   }
 
-  return limits
+  return percents
 }
 
 export function calcularAreaOriginal(data: any[]) {
@@ -52,8 +60,8 @@ export function calcularAreaOriginal(data: any[]) {
 }
 
 export function definePolyBasedPercentage(
-  map: { features: any; },
-  bboxAuxiliary: { bbox: number[]; geometry: { coordinates: number[][][]; }; },
+  map: { features: any },
+  bboxAuxiliary: { bbox: number[]; geometry: { coordinates: number[][][] } },
   targetPercentage: number,
   inferiorLimit: number,
   higherLimit: number,
@@ -69,7 +77,7 @@ export function definePolyBasedPercentage(
 
   let previousClipedArea = bboxClip(
     map?.features[0]?.geometry,
-    (bboxAuxiliary?.bbox as BBox),
+    bboxAuxiliary?.bbox as BBox,
   )
 
   for (let j = 0; j < 100; j++) {
@@ -77,7 +85,10 @@ export function definePolyBasedPercentage(
     bboxAuxiliary!.bbox[3] = aux
     bboxAuxiliary!.geometry!.coordinates[0][2][1] = aux
     bboxAuxiliary!.geometry!.coordinates[0][3][1] = aux
-    const cliped = bboxClip(map!.features[0]!.geometry, (bboxAuxiliary!.bbox as BBox))
+    const cliped = bboxClip(
+      map!.features[0]!.geometry,
+      bboxAuxiliary!.bbox as BBox,
+    )
 
     const clipedArea = calcularAreaOriginal([cliped])
     const clipedPercentualOfTotalArea = (clipedArea * 100) / totalArea
@@ -90,18 +101,24 @@ export function definePolyBasedPercentage(
   return previousClipedArea
 }
 
-export function getPersonalizedBbox(bbox: Feature<Polygon>, newInferiorLimit: number) {
+export function getPersonalizedBbox(
+  bbox: Feature<Polygon>,
+  newInferiorLimit: number,
+) {
   const bbox_teste: BBox = [
-      bbox!.bbox![0],
-      newInferiorLimit,
-      bbox!.bbox![2],
-      bbox!.bbox![3],
+    bbox!.bbox![0],
+    newInferiorLimit,
+    bbox!.bbox![2],
+    bbox!.bbox![3],
   ]
   const poly = bboxPolygon(bbox_teste)
   return poly
 }
 
-export function plotSections(map: { features: any; }, percentages: string | any[]) {
+export function plotSections(
+  map: { features: any },
+  percentages: string | any[],
+) {
   const bbox = getBbox(map?.features) // bbox original shape
   let bboxAuxiliary = getBbox(map?.features) // bbox auxiliary
   const clipedSections = []
@@ -112,7 +129,7 @@ export function plotSections(map: { features: any; }, percentages: string | any[
     // @ts-ignore
     clipedSections[i] = definePolyBasedPercentage(
       map,
-      (bboxAuxiliary as any),
+      bboxAuxiliary as any,
       percentages[i],
       inferiorLimit,
       higherLimit,
