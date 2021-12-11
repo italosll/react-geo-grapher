@@ -142,3 +142,165 @@ export function plotSections(
 
   return clipedSections
 }
+
+type squareGridProps = {
+  units?: Units;
+  properties?: {};
+  mask?:
+    | Polygon
+    | MultiPolygon
+    | Feature<Polygon | MultiPolygon, { [name: string]: any }>;
+};
+
+export function plotGrid(bbox: any, km2: any, map: any) {
+  const cellSide = km2
+  //  var options = {units: 'kilometers', mask:map};
+  const options: squareGridProps = {
+    units: 'kilometers',
+    properties: {},
+    mask: map,
+  }
+  const squareGrid1 = squareGrid(bbox.bbox, cellSide, options)
+  return squareGrid1
+}
+
+export function getCenters(featureCollection: any) {
+  const centers = []
+  for (let i = 0; i < featureCollection.length; i++) {
+    // @ts-ignore
+    centers[i] = centerOfMass(featureCollection[i])
+  }
+  return centers
+}
+
+export function colorInRange(
+  objectLongitude: number,
+  limit1: number,
+  limit2: number,
+) {
+  return (
+    (objectLongitude >= limit1 && objectLongitude <= limit2)
+    || (objectLongitude >= limit2 && objectLongitude <= limit1)
+  )
+}
+
+export function getLinesOnAxisXY(
+  scaleFactor: number,
+  bbox: Feature<Polygon, Properties>,
+) {
+  const limitTop = bbox.geometry.coordinates[0][2][1]
+  const limitBottom = bbox.geometry.coordinates[0][0][1]
+  const limitLeft = bbox.geometry.coordinates[0][0][0]
+  const limitRight = bbox.geometry.coordinates[0][1][0]
+  const spaceBetweenLinesX = getModuleInterval(
+    limitTop,
+    limitBottom,
+    scaleFactor,
+  )
+  const spaceBetweenLinesY = getModuleInterval(
+    limitLeft,
+    limitRight,
+    scaleFactor,
+  )
+
+  const linesOnAxisX = []
+  const linesOnAxisY = []
+  for (let i = 0; i <= scaleFactor; i++) {
+    const positionY = limitBottom + spaceBetweenLinesX * i
+    const positionX = limitLeft + spaceBetweenLinesY * i
+    // @ts-ignore
+    linesOnAxisX[i] = lineString([
+      [limitLeft, positionY],
+      [limitRight, positionY],
+    ])
+    // @ts-ignore
+    linesOnAxisY[i] = lineString([
+      [positionX, limitBottom],
+      [positionX, limitTop],
+    ])
+  }
+
+  return [linesOnAxisX, linesOnAxisY]
+}
+
+export function getGridPointsPerLines(
+  scaleFactor: any,
+  linesOnAxisX: any,
+  linesOnAxisY: any,
+) {
+  const gridPointsPerLines = [[]]
+  for (let k = 0; k <= scaleFactor; k++) {
+    gridPointsPerLines[k] = []
+
+    for (let l = 0; l <= scaleFactor; l++) {
+      // @ts-ignore
+      gridPointsPerLines[k][l] = lineIntersect(
+        linesOnAxisX[k],
+        linesOnAxisY[l],
+      ).features[0]
+    }
+  }
+
+  return gridPointsPerLines
+}
+
+export function getAllLines(gridPointsPerLines: any, polyMap: any) {
+  const lines = [[]]
+  let actualLineIndex = 0
+
+  for (let i = 0; i <= gridPointsPerLines.length - 1; i++) {
+    lines[actualLineIndex] = []
+
+    let pastPointIsInMap = false
+
+    for (let j = 0; j <= gridPointsPerLines[i].length - 1; j++) {
+      const point = gridPointsPerLines[i][j]
+
+      if (booleanWithin(point, polyMap)) {
+        // actual point is in map ?
+        // @ts-ignore
+        lines[actualLineIndex].push(point)
+        pastPointIsInMap = true
+      } else if (pastPointIsInMap) {
+        actualLineIndex += 1
+        lines[actualLineIndex] = []
+        pastPointIsInMap = false
+      }
+    }
+  }
+
+  return lines
+}
+
+export function getAllLineStrings(lines: any[]) {
+  const lineStrings = []
+
+  for (let i = 0; i <= lines.length - 1; i++) {
+    if (lines[i].length > 0) {
+      if (lines[i].length < 2) lines[i].push(lines[i][0])
+      // @ts-ignore
+      lineStrings[i] = lineString([
+        [
+          lines[i][0].geometry.coordinates[0],
+          lines[i][0].geometry.coordinates[1],
+        ],
+        [
+          lines[i][lines[i].length - 1].geometry.coordinates[0],
+          lines[i][lines[i].length - 1].geometry.coordinates[1],
+        ],
+      ])
+    }
+  }
+
+  return lineStrings
+}
+
+export function getModuleInterval(
+  limit1: number,
+  limit2: number,
+  scaleFactor: number,
+) {
+  return Math.abs(
+    (Math.abs(limit1) - Math.abs(limit2)) / Math.abs(scaleFactor),
+  )
+}
