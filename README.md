@@ -35,7 +35,7 @@ SKIP_PREFLIGHT_CHECK=true
 <img width="300px"  src="https://i.ibb.co/kXThJrJ/Page-1.png" alt="map">
 
 </h1>
-<a href="https://codesandbox.io/s/react-geo-grapher-lnyjq" target="_blank">   
+<a href="https://codesandbox.io/s/barmap-7zmmq" target="_blank">
 <img
 src="https://i.ibb.co/LhGcQms/codesandbox.png" target="_blank" alt="codesandbox" width="150px"
 />
@@ -53,7 +53,7 @@ src="https://i.ibb.co/LhGcQms/codesandbox.png" target="_blank" alt="codesandbox"
       <BarMap
         style={{ width: "400px", background: "#ffffff" }}
         geojson={goias}
-        limits={[40, 30, 30]}
+        percents={[40, 30, 30]}
         colors={['#040DA6', '#10863C', '#920B8E']}
         scale={5500}
       />
@@ -64,7 +64,7 @@ src="https://i.ibb.co/LhGcQms/codesandbox.png" target="_blank" alt="codesandbox"
 
 | Parameter           | Type                                      | Definition                                                                                                                        |
 | ------------------- | ----------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| limits              | `Array<number>`                           | Each array index will correspond to a section in the map, the sum of array values ​​must equal 100, all numbers must be integers. |
+| percents            | `Array<number>`                           | Each array index will correspond to a section in the map, the sum of array values ​​must equal 100, all numbers must be integers. |
 | colors              | `Array<string>`                           | Each index of the array will match the color of a section on the map.                                                             |
 | geojson             | `Feature` or `FeatureCollection` or `any` | Geojson file.                                                                                                                     |
 | style               | `CSSProperties` or `undefined`            | Css properties that will be applied to the \</div> around the map.                                                                |
@@ -80,7 +80,7 @@ src="https://i.ibb.co/LhGcQms/codesandbox.png" target="_blank" alt="codesandbox"
 <img width="300px"  src="https://i.ibb.co/dMDzK0R/Page-4.png" alt="map">
 </h1>
 
-<a href="https://codesandbox.io/s/react-geo-grapher-lnyjq" target="_blank">   
+<a href="https://codesandbox.io/s/linemap-bblec" target="_blank">
 <img
 src="https://i.ibb.co/LhGcQms/codesandbox.png" target="_blank" alt="codesandbox" width="150px"
 />
@@ -97,11 +97,11 @@ src="https://i.ibb.co/LhGcQms/codesandbox.png" target="_blank" alt="codesandbox"
       <LineMap
         style={{ width: "400px", background: "#ffffff" }}
         geojson={goias}
-        limits={[40, 30, 30]}
+        percents={[40, 30, 30]}
         colors={['#040DA6', '#10863C', '#920B8E']}
         scale={4700}
-		scaleFactor={30}
-		strokeWidth="15px"
+        scaleFactor={30}
+        strokeWidth="15px"
       />
 
 ```
@@ -110,7 +110,7 @@ src="https://i.ibb.co/LhGcQms/codesandbox.png" target="_blank" alt="codesandbox"
 
 | Parameter           | Type                                      | Definition                                                                                                                        |
 | ------------------- | ----------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| limits              | `Array<number>`                           | Each array index will correspond to a section in the map, the sum of array values ​​must equal 100, all numbers must be integers. |
+| percents            | `Array<number>`                           | Each array index will correspond to a section in the map, the sum of array values ​​must equal 100, all numbers must be integers. |
 | colors              | `Array<string>`                           | Each index of the array will match the color of a section on the map.                                                             |
 | geojson             | `Feature` or `FeatureCollection` or `any` | Geojson file.                                                                                                                     |
 | style               | `CSSProperties` or `undefined`            | Css properties that will be applied to the \</div> around the map.                                                                |
@@ -128,11 +128,7 @@ src="https://i.ibb.co/LhGcQms/codesandbox.png" target="_blank" alt="codesandbox"
 <img width="300px"  src="https://i.ibb.co/D1yXYMD/Page-2.png" alt="map">
 </h1>
 
-<a href="https://codesandbox.io/s/react-geo-grapher-lnyjq" target="_blank">   
-<img
-src="https://i.ibb.co/LhGcQms/codesandbox.png" target="_blank" alt="codesandbox" width="150px"
-/>
-</a>
+<h4> This map is too strong for codesandbox to load it... </h4>
 
 ```JSX
 
@@ -145,11 +141,11 @@ src="https://i.ibb.co/LhGcQms/codesandbox.png" target="_blank" alt="codesandbox"
       <CircMap
         style={{ width: "400px", background: "#ffffff" }}
         geojson={goias}
-        limits={[40, 30, 30]}
+        percents={[40, 30, 30]}
         colors={['#040DA6', '#10863C', '#920B8E']}
         scale={4700}
-		spacing={25}
-		itemSize={8}
+        spacing={25}
+        itemSize={8}
       />
 
 ```
@@ -176,11 +172,7 @@ src="https://i.ibb.co/LhGcQms/codesandbox.png" target="_blank" alt="codesandbox"
 <img width="300px"  src="https://i.ibb.co/D1yXYMD/Page-2.png" alt="map">
 </h1>
 
-<a href="https://codesandbox.io/s/react-geo-grapher-lnyjq" target="_blank">   
-<img
-src="https://i.ibb.co/LhGcQms/codesandbox.png" target="_blank" alt="codesandbox" width="150px"
-/>
-</a>
+<h4> This map is too strong for codesandbox to load it... </h4>
 
 ```JSX
 
@@ -193,11 +185,11 @@ src="https://i.ibb.co/LhGcQms/codesandbox.png" target="_blank" alt="codesandbox"
       <SquaredMap
         style={{ width: "400px", background: "#ffffff" }}
         geojson={goias}
-        limits={[40, 30, 30]}
+        percents={[40, 30, 30]}
         colors={['#040DA6', '#10863C', '#920B8E']}
         scale={4700}
-		spacing={25}
-		itemSize={8}
+        spacing={25}
+        itemSize={8}
       />
 
 ```
@@ -206,7 +198,7 @@ src="https://i.ibb.co/LhGcQms/codesandbox.png" target="_blank" alt="codesandbox"
 
 | Parameter           | Type                                      | Definition                                                                                                                        |
 | ------------------- | ----------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| limits              | `Array<number>`                           | Each array index will correspond to a section in the map, the sum of array values ​​must equal 100, all numbers must be integers. |
+| percents            | `Array<number>`                           | Each array index will correspond to a section in the map, the sum of array values ​​must equal 100, all numbers must be integers. |
 | colors              | `Array<string>`                           | Each index of the array will match the color of a section on the map.                                                             |
 | geojson             | `Feature` or `FeatureCollection` or `any` | Geojson file.                                                                                                                     |
 | style               | `CSSProperties` or `undefined`            | Css properties that will be applied to the \</div> around the map.                                                                |
