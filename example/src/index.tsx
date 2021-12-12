@@ -8,20 +8,22 @@ import {
 
 import goias from './goias.json'
 
+const colors = ['#040DA6', '#10863C', '#920B8E']
+
 const App = () => (
   <div style={{ display: 'flex' }}>
     <BarMap
-      style={{ width: '700px', background: '#ffffff' }}
+      style={{ width: '200px', background: '#ffffff' }}
       geojson={goias}
       percents={[40, 30, 30]}
-      colors={['#0077ff', '#ff7171', '#78ff73']}
+      colors={colors}
     />
 
     <CircMap
       style={{ width: '200px', background: '#ffffff' }}
       geojson={goias}
       percents={[40, 30, 30]}
-      colors={['#0077ff', '#ff7171', '#78ff73']}
+      colors={colors}
       scale={4700}
       spacing={25}
       itemSize={8}
@@ -31,7 +33,7 @@ const App = () => (
       style={{ width: '200px', background: '#ffffff' }}
       geojson={goias}
       percents={[40, 30, 30]}
-      colors={['#0077ff', '#ff7171', '#78ff73']}
+      colors={colors}
       scale={4700}
       spacing={25}
       itemSize={15}
@@ -41,10 +43,9 @@ const App = () => (
       style={{ width: '200px', background: '#ffffff' }}
       geojson={goias}
       percents={[40, 30, 30]}
-      colors={['#0077ff', '#ff7171', '#78ff73']}
+      colors={colors}
       scale={4700}
-      itemSize={110}
-      scaleFactor={30}
+      scaleFactor={20}
       strokeWidth="15px"
     />
   </div>
