@@ -27,7 +27,6 @@ export type LineMapProps = {
   percents: any[];
   colors: any[];
   scale?: number;
-  itemSize?: number;
   rotate?: [number, number, number];
   rectSize?: number;
   style: CSSProperties | undefined;
