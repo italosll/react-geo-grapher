@@ -8,6 +8,18 @@
     "dist",
     "src"
   ],
+  "keywords": [
+    "geojson",
+    "react",
+    "map",
+    "maps",
+    "react-simple-maps",
+    "line",
+    "bar",
+    "square",
+    "circ",
+    "graphic"
+  ],
   "engines": {
     "node": ">=10"
   },
