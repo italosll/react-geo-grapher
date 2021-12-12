@@ -169,7 +169,7 @@ src="https://i.ibb.co/LhGcQms/codesandbox.png" target="_blank" alt="codesandbox"
 ## SquaredMap
 
 <h1 align="center">
-<img width="300px"  src="https://i.ibb.co/D1yXYMD/Page-2.png" alt="map">
+<img width="300px"  src="https://i.ibb.co/W2sQnp3/Page-3.png" alt="map">
 </h1>
 
 <h4> This map is too strong for codesandbox to load it... </h4>
